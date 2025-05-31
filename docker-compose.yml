@@ -1,0 +1,39 @@
+version: '3.8'
+
+services:
+  web:
+    build: ./app
+    container_name: flask_app
+    ports:
+      - "5000:5000"  # Exponer el puerto si querés acceder por navegador
+    volumes:
+      - ./app:/app
+    environment:
+      - PYTHONUNBUFFERED=1
+    depends_on:
+      - db
+    networks:
+      - internal
+
+  db:
+    image: mysql:8.0
+    container_name: mysql_db
+    restart: always
+    environment:
+      MYSQL_DATABASE: asistencia
+      MYSQL_USER: admin
+      MYSQL_PASSWORD: admin123
+      MYSQL_ROOT_PASSWORD: root123
+    volumes:
+      - db_data:/var/lib/mysql
+    ports:
+      - "3306:3306"
+    networks:
+      - internal
+
+volumes:
+  db_data:
+
+networks:
+  internal:
+    driver: bridge
