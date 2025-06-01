@@ -13,7 +13,7 @@ create_app = app_module.create_app
 db = app_module.db
 
 def fetch_attendance():
-    zk = ZK('192.168.1.71', port=4370, timeout=5, password=0, force_udp=False, ommit_ping=True)
+    zk = ZK('192.168.1.29', port=4370, timeout=5, password=0, force_udp=False, ommit_ping=True)
     try:
         conn = zk.connect()
         conn.disable_device()

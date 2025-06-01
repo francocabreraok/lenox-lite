@@ -6,5 +6,5 @@ class Config:
     SQLALCHEMY_TRACK_MODIFICATIONS = False
 
     # ZK MB20 settings
-    ZK_DEVICE_IP = '192.168.1.71'
+    ZK_DEVICE_IP = '192.168.1.29'
     ZK_DEVICE_PORT = 4370
