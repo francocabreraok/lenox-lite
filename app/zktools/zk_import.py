@@ -21,19 +21,27 @@ def fetch_attendance():
 
         app = create_app()
         with app.app_context():
+            nuevos = 0
             for att in attendances:
+                # Evitar duplicados por uid
+                if Attendance.query.filter_by(uid=att.uid).first():
+                    continue
+
                 record = Attendance(
                     user_id=att.user_id,
                     timestamp=att.timestamp,
-                    status=att.status,  # <-- Entrada o salida
-                    uid=att.uid         # <-- ID único del evento
+                    status=att.status,
+                    uid=att.uid
                 )
                 db.session.add(record)
-            db.session.commit()
+                nuevos += 1
 
-        print("Asistencias importadas correctamente.")
+            db.session.commit()
+            print(f"Asistencias importadas correctamente. Nuevas entradas: {nuevos}")
+
         conn.enable_device()
         conn.disconnect()
+
     except Exception as e:
         print("Error al conectar con ZK MB20:", e)
 
