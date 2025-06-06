@@ -22,7 +22,12 @@ def fetch_attendance():
         app = create_app()
         with app.app_context():
             for att in attendances:
-                record = Attendance(user_id=att.user_id, timestamp=att.timestamp)
+                record = Attendance(
+                    user_id=att.user_id,
+                    timestamp=att.timestamp,
+                    status=att.status,  # <-- Entrada o salida
+                    uid=att.uid         # <-- ID único del evento
+                )
                 db.session.add(record)
             db.session.commit()
 
